@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 public class ManagerTest {
 
     Ticket ticket1 = new Ticket(1, 5357, "SVO", "CEK", 95);
@@ -14,6 +16,7 @@ public class ManagerTest {
 
 
     TicketRepository repo = new TicketRepository();
+    TicketTravelTimeComparator timeComparator = new TicketTravelTimeComparator();
 
     @Test
     public void shouldFindTickets() {
@@ -27,10 +30,10 @@ public class ManagerTest {
         manager.add(ticket6);
         manager.add(ticket7);
         manager.add(ticket8);
-        manager.findAll("SVO", "CEK");
+        manager.findAll("SVO", "CEK", timeComparator);
 
-        Ticket[] expected = {ticket3, ticket1, ticket5, ticket4, ticket2};
-        Ticket[] actual = manager.findAll("SVO", "CEK");
+        Ticket[] expected = {ticket2, ticket5, ticket1, ticket4, ticket3};
+        Ticket[] actual = manager.findAll("SVO", "CEK",  timeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -42,10 +45,10 @@ public class ManagerTest {
         manager.add(ticket6);
         manager.add(ticket7);
         manager.add(ticket8);
-        manager.findAll("SVO", "CEK");
+        manager.findAll("SVO", "CEK",timeComparator);
 
         Ticket[] expected = {};
-        Ticket[] actual = manager.findAll("SVO", "CEK");
+        Ticket[] actual = manager.findAll("SVO", "CEK", timeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
 
@@ -59,10 +62,10 @@ public class ManagerTest {
         manager.add(ticket6);
         manager.add(ticket7);
         manager.add(ticket8);
-        manager.findAll("SVO", "CEK");
+        manager.findAll("SVO", "CEK", timeComparator);
 
         Ticket[] expected = {ticket5};
-        Ticket[] actual = manager.findAll("SVO", "CEK");
+        Ticket[] actual = manager.findAll("SVO", "CEK", timeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
 
