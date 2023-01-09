@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class TicketManager {
 
@@ -20,7 +21,7 @@ public class TicketManager {
         }
     }
 
-    public Ticket[] findAll(String from, String to) {
+    public Ticket[] findAll(String from, String to, Comparator<Ticket> comparator) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repo.findTickets()) {
             if (matches(ticket, from, to)) {
@@ -32,9 +33,12 @@ public class TicketManager {
                 result = tmp;
             }
         }
-        Arrays.sort(result);
+        TicketTravelTimeComparator timeComparator = new TicketTravelTimeComparator();
+        Arrays.sort(result, timeComparator);
         return result;
     }
+
+
 
 
 }
